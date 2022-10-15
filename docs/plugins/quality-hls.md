@@ -2,7 +2,7 @@
 
 A plugin for switch video quality by HLS playlist.
 
-[Demo](https://github.com/awesome-tool/x-video/examples/quality-hls.html)
+<!-- [Demo](https://github.com/awesome-tool/x-video/examples/quality-hls.html) -->
 
 ### Usage
 

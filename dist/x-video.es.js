@@ -388,7 +388,7 @@ var AboutThisPlayer = /*#__PURE__*/function (_ContextMenuItem) {
   _proto.handleClick = function handleClick() {
     _ContextMenuItem.prototype.handleClick.call(this);
 
-    window.open('https://github.com/awesome-tool/x-video', '_blank');
+    window.open('https://awesome-tool.github.io/x-video/docs/', '_blank');
   };
 
   return AboutThisPlayer;

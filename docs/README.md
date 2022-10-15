@@ -4,7 +4,7 @@ X Video is an extension and skin for [video.js](https://github.com/videojs/video
 
 <img src="./assets/screenshot/electron-frameless-player.png">
 
-[Documentation](https://github.com/awesome-tool/x-video/docs/)
+[Documentation](https://awesome-tool.github.io/x-video/docs/)
 
 ### Installation
 
