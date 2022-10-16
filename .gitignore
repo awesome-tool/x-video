@@ -9,7 +9,6 @@ dist
 
 npm-debug.log
 yarn-error.log
-yarn.lock
 .yarnclean
 .vscode
 temp
