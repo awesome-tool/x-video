@@ -1,4 +1,4 @@
-## Setting Menu <!-- {docsify-ignore-all} -->
+## 配置菜单 <!-- {docsify-ignore-all} -->
 
 ```html inject
 <video
@@ -117,7 +117,7 @@ const player = videojs('example-video', {
 player.findChild('SettingMenuButton')[0].component.handleClick();
 ```
 
-#### Note
+#### 注意
 
 - above example script should load before initializing player, otherwise you should assign `menu` your self. For example
 

@@ -2,7 +2,7 @@
 
 A plugin for switch video quality by the different video source
 
-#### Usage
+#### 使用
 
 ```html inject keep
 <script src="../dist/plugins/quality/index.js"></script>

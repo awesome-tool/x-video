@@ -4,24 +4,24 @@ X Video is an extension and skin for [video.js](https://github.com/videojs/video
 
 <img src="./assets/screenshot/electron-frameless-player.png">
 
-[Documentation](https://pong420.github.io/videojs-plus/docs/)
+[Documentation](https://awesome-tool.github.io/x-video/docs/)
 
 ### Installation
 
 ```bash
-npm install videojs-plus
+npm install x-video
 # or
-yarn add videojs-plus
+yarn add x-video
 ```
 
-### Usage
+### 使用
 
 - Include the correspone JS and CSS and
 
   ```html highlight=3,14,15,17
   <html>
     <head>
-      <link rel="stylesheet" href="videojs-plus.css" />
+      <link rel="stylesheet" href="x-video.css" />
     </head>
     <body>
       <video
@@ -33,7 +33,7 @@ yarn add videojs-plus
       </video>
     </body>
     <script src="http://vjs.zencdn.net/7.4.1/video.js"></script>
-    <script src="videojs-plus.umd.js"></script>
+    <script src="x-video.umd.js"></script>
     <script>
       const player = videojs('example-video');
     </script>

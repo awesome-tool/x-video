@@ -4,7 +4,7 @@ This plugin may useful for video transition in `Single Page Application`.
 
 If your video dynamically changes with URL parameters and the new video source need to wait for a new API response. Then you could stop/unload current video by `playr.unload()`.
 
-### Usage
+### 使用
 
 ```html inject keep
 <script src="../dist/plugins/unload/index.js"></script>

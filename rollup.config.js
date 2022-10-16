@@ -75,7 +75,7 @@ const distDir = 'dist';
 export default [
   createEntry(
     'source/index.js',
-    output(format => path.join(distDir, `/videojs-plus.${format}.js`))
+    output(format => path.join(distDir, `/x-video.${format}.js`))
   ),
   ...fs.readdirSync(pluginsDir).map(pluginName => {
     const kebabCaseName = kebabCase(pluginName);

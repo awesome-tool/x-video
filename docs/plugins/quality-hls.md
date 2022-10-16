@@ -2,9 +2,9 @@
 
 A plugin for switch video quality by HLS playlist.
 
-[Demo](https://pong420.github.io/videojs-plus/examples/quality-hls.html)
+<!-- [Demo](https://github.com/awesome-tool/x-video/examples/quality-hls.html) -->
 
-### Usage
+### 使用
 
 Include [videojs-contrib-quality-levels](https://github.com/videojs/videojs-contrib-quality-levels) and the plugin js, the quality menu item will be setup automatically.
 

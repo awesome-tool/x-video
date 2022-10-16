@@ -4,7 +4,7 @@ This plugin is a wrapper of [VideoJS TextTrack API](https://docs.videojs.com/doc
 And create a [setting menu item](../features/setting-menu.md) for subtitles selection. <br>
 Currently, only support text track kind `subtitles`, not sure `caption` should also be included or not
 
-### Usage
+### 使用
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/subtitles/style.css" />

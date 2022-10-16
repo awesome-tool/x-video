@@ -1,10 +1,8 @@
-## Fullscreen for Electron <!-- {docsify-ignore-all} -->
-
-Make the fullscreen button toggle electron fullscreen instead of video fullscreen
+## Electron 全屏切换 <!-- {docsify-ignore-all} -->
 
 <br />
 
-If `nodeIntegration` option of your electron webPreferences is not true. You should create a `preload.js` and assign a function `getCurrentWindow` to window
+如果你的 `Electron webPreferences` 的 `nodeIntegration` 选项不为 `true` 。你应该创建一个`preload.js` 并分配一个函数 `getCurrentWindow` 给 `window`
 
 ```js file=preload.js
 import { remote } from 'electron';

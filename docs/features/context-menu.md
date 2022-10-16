@@ -1,4 +1,4 @@
-## Context Menu <!-- {docsify-ignore-all} -->
+## 右键菜单 <!-- {docsify-ignore-all} -->
 
 > Example for adding a custom contextmenu item
 

@@ -8,12 +8,12 @@ class Live extends Plugin {
   constructor(player, options = {}) {
     super(player, options);
 
-    this.createLiveNotive(player);
+    this.createLiveNative(player);
 
     this.start(player);
   }
 
-  createLiveNotive(player) {
+  createLiveNative(player) {
     const { parent, index } = player.findChild('DurationDisplay')[0];
     const noticeEl = new LiveNotice(player);
 

@@ -1,4 +1,4 @@
-## Controls dimension <!-- {docsify-ignore-all} -->
+## 媒体查询控制 <!-- {docsify-ignore-all} -->
 
 You could change the dimension of controls/menu by changing the `font-size` of className `.video-js`.
 

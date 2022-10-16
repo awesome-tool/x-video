@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="/docs/assets/playlist.css" />
 
-### Usage
+### 使用
 
 Include the plugin js and css
 

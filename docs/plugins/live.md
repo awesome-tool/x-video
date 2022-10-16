@@ -2,7 +2,7 @@
 
 A style plugin that create a live streaming notice on the control bar and hide the progress bar
 
-### Usage
+### 使用
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/live/style.css" />

@@ -1,4 +1,4 @@
-## Mobile UI <!-- {docsify-ignore-all} -->
+## 移动端 <!-- {docsify-ignore-all} -->
 
 Mobile UI is controlled by class `vjs-mobile-view`.
 This class will be added if the player initializes at screen smaller or equal 480px.

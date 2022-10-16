@@ -1,18 +1,18 @@
-## Title <!-- {docsify-ignore-all} -->
+## 标题 <!-- {docsify-ignore-all} -->
 
 <img src="./assets/screenshot/video-title.png">
 
-### Usage
+### 使用
 
 ```js
-// set title using options
+// 通过配置项设置
 const player = videojs('example-video', {
   title: 'Title'
 });
 
-// or
+// 直接设置
 player.title('Set Titlte');
 
-// return current title
+// 取值 返回标题
 player.title();
 ```
