@@ -5,7 +5,7 @@
 
 ### 使用
 
-Include the plugin js and css
+引入 `js` 文件和 `css` 文件
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/full-window-toggle/style.css" />
@@ -23,6 +23,8 @@ Include the plugin js and css
   <source src="https://vjs.zencdn.net/v/oceans.mp4" />
 </video>
 ```
+
+### API
 
 ```js run
 const player = videojs('example-video', {

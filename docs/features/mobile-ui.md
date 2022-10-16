@@ -1,14 +1,13 @@
 ## 移动端 <!-- {docsify-ignore-all} -->
 
-Mobile UI is controlled by class `vjs-mobile-view`.
-This class will be added if the player initializes at screen smaller or equal 480px.
+手机端样式通过 `class` `vjs-mobile-view` 控制。
 
 <div style="margin: auto">
   <img style="float: left; max-width: 300px; width: 49%" src="./assets/screenshot/mobileui.control.png">
   <img style="float: left; max-width: 300px; width: 49%; margin-left: 2%" src="./assets/screenshot/mobileui.setting.png" width="300px">
 </div>
 
-### Disable mobile view
+### 禁用手机视图
 
 ```js
 const player = videojs("example-video", {

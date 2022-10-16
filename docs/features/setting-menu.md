@@ -10,7 +10,7 @@
 </video>
 ```
 
-> Example for adding on-off menu item
+> 添加一个右键菜单annotaion开关的示例
 
 ```js run
 const SettingOnOffItem = videojs.getComponent('SettingOnOffItem');
@@ -46,7 +46,7 @@ videojs
 videojs.registerComponent('ToggleAnnotation', ToggleAnnotation);
 ```
 
-> Example for adding an optional menu item
+> 添加一个多选开关的示例
 
 ```js run
 const SettingOptionItem = videojs.getComponent('SettingOptionItem');
@@ -119,7 +119,7 @@ player.findChild('SettingMenuButton')[0].component.handleClick();
 
 #### 注意
 
-- above example script should load before initializing player, otherwise you should assign `menu` your self. For example
+- 以上的示例都需要在初始化播放器之前引入，或者绑定 menu 选项
 
 ```js
 const { component: SettingMenu } = player.findChild('SettingMenu')[0];

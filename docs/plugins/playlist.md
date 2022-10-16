@@ -1,10 +1,9 @@
-## Playlist <!-- {docsify-ignore-all} -->
+## 播放列表 <!-- {docsify-ignore-all} -->
 
-<link rel="stylesheet" href="/docs/assets/playlist.css" />
-
+<!-- <link rel="stylesheet" href="/docs/assets/playlist.css" /> -->
 ### 使用
 
-Include the plugin js and css
+引入 `js` 文件和 `css` 文件
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/playlist/style.css" />
@@ -12,6 +11,7 @@ Include the plugin js and css
 ```
 
 > The playlist UI at the right-hand side need to create by yourself
+> 这个播放列表的 `UI` 需要自己手动创建
 
 ```html inject
 <div class="container">

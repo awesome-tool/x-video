@@ -1,12 +1,12 @@
-## Quality HLS <!-- {docsify-ignore-all} -->
+## 分辨率 HLS <!-- {docsify-ignore-all} -->
 
-A plugin for switch video quality by HLS playlist.
+一个可以通过直播播放流切换不同分辨率的插件
 
 <!-- [Demo](https://github.com/awesome-tool/x-video/examples/quality-hls.html) -->
 
 ### 使用
 
-Include [videojs-contrib-quality-levels](https://github.com/videojs/videojs-contrib-quality-levels) and the plugin js, the quality menu item will be setup automatically.
+使用之前需要手动安装 [videojs-contrib-quality-levels](https://github.com/videojs/videojs-contrib-quality-levels) 并引入
 
 ```html inject keep
 <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@2.0.9/dist/videojs-contrib-quality-levels.js"></script>
@@ -32,9 +32,7 @@ player.one('loadedmetadata', function () {
 });
 ```
 
-### Chanage label in the menu
-
-The default label depnds on the `height` defined in HLS manifest but you could customize yourself.
+### 在 menu 中 设置语言
 
 ```js
 const language = "en-us";

@@ -1,6 +1,6 @@
 ## 媒体查询控制 <!-- {docsify-ignore-all} -->
 
-You could change the dimension of controls/menu by changing the `font-size` of className `.video-js`.
+通过媒体查询动态设置 `font-size` 来改变播放器的大小
 
 ```css
 @media (min-width: 1440px) {

@@ -1,6 +1,6 @@
-## Quality <!-- {docsify-ignore-all} -->
+## 分辨率 <!-- {docsify-ignore-all} -->
 
-A plugin for switch video quality by the different video source
+一个可以通过切换不同分辨率切换到不同的播放源的插件
 
 #### 使用
 

@@ -1,6 +1,6 @@
 ## 右键菜单 <!-- {docsify-ignore-all} -->
 
-> Example for adding a custom contextmenu item
+> 添加一个右键菜单的示例
 
 ```html inject
 <video
