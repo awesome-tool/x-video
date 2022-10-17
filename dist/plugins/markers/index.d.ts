@@ -1,5 +1,3 @@
-import videojs from 'video.js';
-
 declare module 'video.js' {
   export interface Marker {
     key: string;
@@ -10,7 +8,7 @@ declare module 'video.js' {
     overlayText?: string;
   }
 
-  export interface MarkersPlugin extends videojs.Plugin {
+  export interface MarkersPlugin {
     getMarker(): Marker[];
     next(): void;
     prev(): void;
@@ -44,7 +42,7 @@ declare module 'video.js' {
   export type MarkerReachedListener = (event: Event, data: {index: number, marker: Marker}) => void;
 
   interface VideoJsPlayer {
-    marker: () => MakersPlugin;
+    markers: MakersPlugin;
 
     on(type: 'marker-click', listener?: MarkerClickListener): void;
     on(type: 'marker-reached', listener?: MarkerReachedListener): void;
