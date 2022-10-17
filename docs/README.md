@@ -1,12 +1,8 @@
 ## X Video <!-- {docsify-ignore-all} -->
 
-X Video is an extension and skin for [video.js](https://github.com/videojs/video.js). <br>
+<!-- [文档地址](https://awesome-tool.github.io/x-video/docs/) -->
 
-<img src="./assets/screenshot/electron-frameless-player.png">
-
-[Documentation](https://awesome-tool.github.io/x-video/docs/)
-
-### Installation
+### 安装
 
 ```bash
 npm install x-video
@@ -16,7 +12,7 @@ yarn add x-video
 
 ### 使用
 
-- Include the correspone JS and CSS and
+- 引入文件
 
   ```html highlight=3,14,15,17
   <html>
@@ -40,7 +36,10 @@ yarn add x-video
   </html>
   ```
 
-- [React Hooks](https://codesandbox.io/s/71z2lm4ko6)
+  ```js
+  import videojs from 'video.js'
+  import videojsPlugin from 'x-video'
+  ```
 
 <br>
 
