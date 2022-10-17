@@ -1,10 +1,10 @@
-## Subtitles <!-- {docsify-ignore-all} -->
+## 副标题 <!-- {docsify-ignore-all} -->
 
-This plugin is a wrapper of [VideoJS TextTrack API](https://docs.videojs.com/docs/guides/text-tracks.html).
-And create a [setting menu item](../features/setting-menu.md) for subtitles selection. <br>
-Currently, only support text track kind `subtitles`, not sure `caption` should also be included or not
+<!-- This plugin is a wrapper of [VideoJS TextTrack API](https://docs.videojs.com/docs/guides/text-tracks.html). -->
+创建一个[菜单设置项](../features/setting-menu.md) 选择控制 <br>
+目前, 只支持文本的副标题
 
-### Usage
+### 使用
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/subtitles/style.css" />
@@ -78,12 +78,10 @@ player.on('subtitlechange', (event, subtitle) => {
 });
 ```
 
-### Note
+### 注意
 
-- HLS In-Manifest WebVTT subtitles may not be supported since I have not resource for testing
-
-- VideoJS only support `vtt` format. Here is one of the methods to load `srt` in videojs. Inspired by this [comment](https://github.com/videojs/video.js/issues/4822#issuecomment-351939054) and here is a working example with [imshaikot/srt-webvtt
-  ](https://github.com/imshaikot/srt-webvtt).
+- HLS In-Manifest WebVTT 副标题暂不支持
+- 目前仅支持 `vtt` 文件，如果你想使用 `webvtt`,请点击这里[imshaikot/srt-webvtt](https://github.com/imshaikot/srt-webvtt)。
 
 ```js
 import WebVTTConverter from 'srt-webvtt/index';

@@ -14,7 +14,7 @@ npm install x-video
 yarn add x-video
 ```
 
-### Usage
+### 使用
 
 - Include the correspone JS and CSS and
 

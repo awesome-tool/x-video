@@ -1,8 +1,7 @@
-## Live Streaming UI <!-- {docsify-ignore-all} -->
+## 直播模式 <!-- {docsify-ignore-all} -->
 
-A style plugin that create a live streaming notice on the control bar and hide the progress bar
-
-### Usage
+一个直播模式插件
+### 使用
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/live/style.css" />

@@ -1,19 +1,20 @@
-- **Features**
-  - [Title](./features/title.md)
-  - [Context Menu](./features/context-menu.md)
-  - [Setting Menu](./features/setting-menu.md)
-  - [Mobile UI](./features/mobile-ui.md)
-  - [Contorls Dimension](./features/controls-dimension.md)
+- **特性**
+  - [标题](./features/title.md)
+  - [右键菜单](./features/context-menu.md)
+  - [配置菜单](./features/setting-menu.md)
+  - [移动端](./features/mobile-ui.md)
+  - [媒体查询控制](./features/controls-dimension.md)
   - [Find Child](./features/find-child.md)
-- **Plugins**
-  - [Audio](./plugins/audio.md)
-  - [Electron Fullscreen Toggle](./plugins/electron-fullscreen-toggle.md)
-  - [Full Window Toggle](./plugins/full-window-toggle.md)
-  - [Live Streaming UI](./plugins/live.md)
-  - [Playlist](./plugins/playlist.md)
-  - [Quality](./plugins/quality.md)
-  - [Quality HLS](./plugins/quality-hls.md)
-  - [Subtitles](./plugins/subtitles.md)
-  - [Unload](./plugins/unload.md)
-- Others
+- **插件**
+  - [标注](./plugins/markers.md)
+  - [音频](./plugins/audio.md)
+  - [Electron 全屏切换](./plugins/electron-fullscreen-toggle.md)
+  - [剧场模式](./plugins/full-window-toggle.md)
+  - [直播模式](./plugins/live.md)
+  - [播放列表](./plugins/playlist.md)
+  - [分辨率](./plugins/quality.md)
+  - [分辨率 HLS](./plugins/quality-hls.md)
+  - [副标题](./plugins/subtitles.md)
+  - [自动卸载](./plugins/unload.md)
+- 其他
   - [Change log](./CHANGELOG.md)

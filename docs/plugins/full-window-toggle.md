@@ -1,11 +1,11 @@
-## Full Window Toggle <!-- {docsify-ignore-all} -->
+## 剧场模式 <!-- {docsify-ignore-all} -->
 
-Since iOS native fullscreen cannot be overridden and you may want to use a full window instead.<br>
-Just include the plugin then the fullscreen button will replace by full window button.
+因为iOS原生全屏不能被覆盖，你可能想使用一个完整的窗口来代替。<br>
+只需包括插件，然后全屏按钮将被全窗口按钮取代。
 
-### Usage
+### 使用
 
-Include the plugin js and css
+引入 `js` 文件和 `css` 文件
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/full-window-toggle/style.css" />
@@ -23,6 +23,8 @@ Include the plugin js and css
   <source src="https://vjs.zencdn.net/v/oceans.mp4" />
 </video>
 ```
+
+### API
 
 ```js run
 const player = videojs('example-video', {

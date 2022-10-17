@@ -1,17 +1,16 @@
-## Playlist <!-- {docsify-ignore-all} -->
+## 播放列表 <!-- {docsify-ignore-all} -->
 
 <link rel="stylesheet" href="/docs/assets/playlist.css" />
+### 使用
 
-### Usage
-
-Include the plugin js and css
+引入 `js` 文件和 `css` 文件
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/playlist/style.css" />
 <script src="../dist/plugins/playlist/index.js"></script>
 ```
 
-> The playlist UI at the right-hand side need to create by yourself
+> 这个播放列表的 `UI` 需要自己手动创建
 
 ```html inject
 <div class="container">
@@ -108,7 +107,7 @@ playList.forEach((item, index) => {
   $list.appendChild($el);
 });
 
-player.on('playlistchange', function (_, selected) {
+player.on('playlist-change', function (_, selected) {
   videojs.dom.removeClass($selected, 'selected');
   $selected = $list.children[selected.index];
   videojs.dom.addClass($selected, 'selected');
@@ -148,7 +147,7 @@ player.on('playlist', playlist => {
   console.log('playlist setup', playlist);
 });
 
-player.on('playlistchange', (event, selectedPlayList) => {
+player.on('playlist-change', (event, selectedPlayList) => {
   console.log('playlist changed', selectedPlayList);
 });
 

@@ -1,16 +1,16 @@
-## Audio <!-- {docsify-ignore-all} -->
+## 音频 <!-- {docsify-ignore-all} -->
 
-Plugin for `HLS streaming` with multiple audio tracks.
+多音轨 `HLS streaming` 插件
 
-### Usage
+### 使用
 
-Just include the plugin then the audio menu item will display automatically.
+只需引入插件，然后音频菜单项将自动显示。
 
-### Chanage label in the menu
+### 在 `menu` 中改变默认 `label`
 
-The default label will be the `label` defined in `HLS manifest` and you could customize yourself.
+默认 `label` 是 `HLS streaming` 清单中定义的 `label`，您可以自定义。
 
-Also you could use [VideoJS Language Features](https://docs.videojs.com/docs/guides/languages.html) to replace the default label
+你也可以使用 [VideoJS 语言设置](https://docs.videojs.com/docs/guides/languages.html) 替换默认的 `label`
 
 ```js
 const language = "en-us";
@@ -50,7 +50,7 @@ player.on('audio', audios => {
   console.log('audio setup', audio);
 });
 
-player.on('audiochange', audio => {
+player.on('audio-change', audio => {
   console.log('audio changed');
 });
 ```
