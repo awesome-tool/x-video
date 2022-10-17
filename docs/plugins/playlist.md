@@ -1,5 +1,6 @@
 ## 播放列表 <!-- {docsify-ignore-all} -->
 
+<!-- <link rel="stylesheet" href="/docs/assets/playlist.css" /> -->
 
 ### 使用
 
@@ -7,7 +8,6 @@
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/playlist/style.css" />
-<link rel="stylesheet" href="../assets/playlist.css" />
 <script src="../dist/plugins/playlist/index.js"></script>
 ```
 
