@@ -1,7 +1,7 @@
 ## 副标题 <!-- {docsify-ignore-all} -->
 
 <!-- This plugin is a wrapper of [VideoJS TextTrack API](https://docs.videojs.com/docs/guides/text-tracks.html). -->
-创建一个[菜单设置项](../features/setting-menu.md) 选择控制 <br>
+创建一个[菜单设置项](./features/setting-menu.md) 选择控制 <br>
 目前, 只支持文本的副标题
 
 ### 使用
