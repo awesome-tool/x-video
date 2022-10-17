@@ -1,6 +1,5 @@
 ## FindChild <!-- {docsify-ignore-all} -->
 
-A function that find player component. For Example, you want to insert a button before SettingMenuButton.
 一个获取播放器组件的方法。比如你想往 `SettingMenuButton` 前插入一个 `button`。
 
 > 使用 findChild
