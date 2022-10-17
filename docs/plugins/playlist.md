@@ -1,12 +1,13 @@
 ## 播放列表 <!-- {docsify-ignore-all} -->
 
-<link rel="stylesheet" href="/docs/assets/playlist.css" />
+
 ### 使用
 
 引入 `js` 文件和 `css` 文件
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/playlist/style.css" />
+<link rel="stylesheet" href="/docs/assets/playlist.css" />
 <script src="../dist/plugins/playlist/index.js"></script>
 ```
 
@@ -14,18 +15,18 @@
 
 ```html inject
 <div class="container">
-  <div class="video-container"><video id="example-video"></video></div>
   <div class="playlist-ui">
     <div class="item-header">
       <a
         href="https://gist.github.com/jsturgis/3b19447b304616f18657"
         target="_blank"
       >
-        Video sources
+        播放列表
       </a>
     </div>
     <div class="wrapper"><div class="list"></div></div>
   </div>
+  <div class="video-container"><video id="example-video"></video></div>
 </div>
 ```
 

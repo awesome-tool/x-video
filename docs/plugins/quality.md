@@ -2,7 +2,7 @@
 
 一个可以通过切换不同分辨率切换到不同的播放源的插件
 
-#### 使用
+### 使用
 
 ```html inject keep
 <script src="../dist/plugins/quality/index.js"></script>
