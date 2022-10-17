@@ -36,7 +36,10 @@ yarn add x-video
   </html>
   ```
 
-- [React Hooks](https://codesandbox.io/s/71z2lm4ko6)
+  ```js
+  import videojs from 'video.js'
+  import videojsPlugin from 'x-video'
+  ```
 
 <br>
 
