@@ -40,26 +40,63 @@ console.log(player.markers);
 
 ```js
 // initialize video.js
-var player = videojs('video-id');
+var player = videojs('video-id', {
+  markerStyle: {
+    width: '7px',
+    'border-radius': '30%',
+    'background-color': 'red'
+  },
+  markerTip: {
+    display: true,
+    text: function (marker) {
+      return marker.text;
+    },
+    time: function (marker) {
+      return marker.time;
+    }
+  },
+  breakOverlay: {
+    display: false,
+    displayTime: 3,
+    style: {
+      width: '100%',
+      height: '20%',
+      'background-color': 'rgba(0,0,0,0.7)',
+      color: 'white',
+      'font-size': '17px'
+    },
+    text: function (marker) {
+      return 'Break overlay: ' + marker.overlayText;
+    }
+  },
+  markers: [
+    {
+      time: 9.5,
+      text: 'marker',
+      overlayText: 'overlay',
+      class: 'custom-marker'
+    }
+  ]
+});
 
 //load the marker plugin
 player.markers({
   markers: [
     {
-        time: 9.5,
-        text: "put"
+      time: 9.5,
+      text: 'put'
     },
     {
-        time: 16,
-        text: "any"
+      time: 16,
+      text: 'any'
     },
     {
-        time: 23.6,
-        text: "text"
+      time: 23.6,
+      text: 'text'
     },
     {
-        time: 28,
-        text: "here"
+      time: 28,
+      text: 'here'
     }
   ]
 });
@@ -71,23 +108,23 @@ player.markers.next();
 player.markers.prev();
 
 // delete markers array by index
-player.markers.remove([1,2]);
+player.markers.remove([1, 2]);
 
 // delete all markers
 player.markers.removeAll();
 
 // add marker
-player.markers.add([{ time: 40, text: "I'm added"}]);
+player.markers.add([{ time: 40, text: "I'm added" }]);
 
 // remove all marker and add marker
-player.markers.reset([{ time: 23, text: "I'm reset"}]);
+player.markers.reset([{ time: 23, text: "I'm reset" }]);
 
 // destroy marker
 player.markers.destroy();
 
 // listen marker click
-player.on('marker-click')
+player.on('marker-click');
 
 // listen marker reached
-player.on('marker-reached')
+player.on('marker-reached');
 ```
