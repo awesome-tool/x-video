@@ -7,7 +7,7 @@
 
 ```html inject keep
 <link rel="stylesheet" href="../dist/plugins/playlist/style.css" />
-<link rel="stylesheet" href="/docs/assets/playlist.css" />
+<link rel="stylesheet" href="../assets/playlist.css" />
 <script src="../dist/plugins/playlist/index.js"></script>
 ```
 
