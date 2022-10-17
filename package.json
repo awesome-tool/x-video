@@ -1,5 +1,5 @@
 {
-  "name": "x-video",
+  "name": "@awesome-tool/x-video",
   "version": "1.0.0",
   "description": "An extension and skin for video.js",
   "main": "dist/x-video.umd.js",
