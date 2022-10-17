@@ -1,60 +1,52 @@
 import videojs from 'video.js';
+import './Markers.scss'
 
-// default setting
-const defaultSetting = {
+const NULL_INDEX = -1;
+const DEFAULT_MARKERS_SETTING = {
   markerStyle: {
-    'width':'7px',
+    'width': '7px',
     'border-radius': '30%',
     'background-color': 'red',
+    'top': '0em'
   },
   markerTip: {
     display: true,
-    text: function(marker) {
-      return "Break: " + marker.text;
+    text: (marker) => {
+      return marker.text;
     },
-    time: function(marker) {
+    time: (marker) => {
       return marker.time;
     },
   },
-  breakOverlay:{
-    display: false,
+  breakOverlay: {
+    display: true,
     displayTime: 3,
-    text: function(marker) {
+    text: (marker) => {
       return "Break overlay: " + marker.overlayText;
     },
     style: {
-      'width':'100%',
+      'width': '100%',
       'height': '20%',
       'background-color': 'rgba(0,0,0,0.7)',
       'color': 'white',
       'font-size': '17px',
     },
   },
-  onMarkerClick: function(marker) {},
-  onMarkerReached: function(marker, index) {},
   markers: [],
 };
 
-// create a non-colliding random number
-function generateUUID() {
-  var d = new Date().getTime();
-  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    var r = (d + Math.random()*16)%16 | 0;
-    d = Math.floor(d/16);
-    return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+const generateUUID = () => {
+  let d = new Date().getTime();
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (d + Math.random() * 16) % 16 | 0;
+    d = Math.floor(d / 16);
+    return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
   return uuid;
 };
 
-/**
- * Returns the size of an element and its position
- * a default Object with 0 on each of its properties
- * its return in case there's an error
- * @param  {Element} element  el to get the size and position
- * @return {DOMRect|Object}   size and position of an element
- */
-function getElementBounding(element) {
-  var elementBounding;
+const getElementBounding = (element) => {
+  let elementBounding;
   const defaultBoundingRect = {
     top: 0,
     bottom: 0,
@@ -73,135 +65,96 @@ function getElementBounding(element) {
   return elementBounding;
 }
 
-const NULL_INDEX = -1;
+class Markers {
+  constructor(player, options = {}) {
+    this.player_ = player
+    this.options_ = videojs.mergeOptions(DEFAULT_MARKERS_SETTING, options)
+    this.markersMap_ = {}
+    this.currentMarkerIndex_ = NULL_INDEX
+    this.markerTip_ = null
+    this.breakOverlay_ = null
+    this.overlayIndex_ = NULL_INDEX
+    this.markers = []
 
-function registerVideoJsMarkersPlugin(options) {
-
-
-  /**
-   * register the markers plugin (dependent on jquery)
-   */
-  let setting = videojs.mergeOptions(defaultSetting, options),
-      markersMap = {},
-      markersList  = [], // list of markers sorted by time
-      currentMarkerIndex  = NULL_INDEX,
-      player       = this,
-      markerTip    = null,
-      breakOverlay = null,
-      overlayIndex = NULL_INDEX;
-
-  function sortMarkersList() {
-    // sort the list by time in asc order
-    markersList.sort((a, b) => {
-      return setting.markerTip.time(a) - setting.markerTip.time(b);
+    this.player_.on("loadedmetadata", () => {
+      this.initialize();
     });
   }
 
-  function addMarkers(newMarkers) {
-    newMarkers.forEach((marker) => {
-      marker.key = generateUUID();
-
-      player.el().querySelector('.vjs-progress-holder')
-        .appendChild(createMarkerDiv(marker));
-
-      // store marker in an internal hash map
-      markersMap[marker.key] = marker;
-      markersList.push(marker);
+  sortMarkers() {
+    this.markers.sort((a, b) => {
+      return this.options_.markerTip.time(a) - this.options_.markerTip.time(b)
     })
-
-    sortMarkersList();
   }
 
-  function getPosition(marker) {
-    return (setting.markerTip.time(marker) / player.duration()) * 100;
+  getPosition(marker) {
+    return this.options_.markerTip.time(marker) / this.player_.duration() * 100
   }
 
-  function setMarkderDivStyle(marker, markerDiv) {
-    markerDiv.className = `vjs-marker ${marker.class || ""}`;
-
-    Object.keys(setting.markerStyle).forEach(key => {
-      markerDiv.style[key] = setting.markerStyle[key];
+  addMarkers(list) {
+    list.forEach(marker => {
+      marker.key = generateUUID()
+      this.player_.el().querySelector('.vjs-progress-holder').appendChild(this.createMarkerEl(marker))
+      this.markersMap_[marker.key] = marker
+      this.markers.push(marker)
     });
-
-    // hide out-of-bound markers
-    const ratio = marker.time / player.duration();
-    if (ratio < 0 || ratio > 1) {
-      markerDiv.style.display = 'none';
-    }
-
-    // set position
-    markerDiv.style.left = getPosition(marker) + '%';
-    if (marker.duration) {
-      markerDiv.style.width = (marker.duration / player.duration()) * 100 + '%';
-      markerDiv.style.marginLeft = '0px';
-    } else {
-      const markerDivBounding = getElementBounding(markerDiv);
-      markerDiv.style.marginLeft = markerDivBounding.width / 2 + 'px';
-    }
+    this.sortMarkers()
   }
 
-  function createMarkerDiv(marker) {
+  createMarkerEl(marker) {
 
-    var markerDiv = videojs.dom.createEl('div', {}, {
+    const markerEl = videojs.dom.createEl('div', {}, {
       'data-marker-key': marker.key,
-      'data-marker-time': setting.markerTip.time(marker)
+      'data-marker-time': this.options_.markerTip.time(marker)
     });
 
-    setMarkderDivStyle(marker, markerDiv);
+    this.setMarkerElStyle(marker, markerEl);
 
     // bind click event to seek to marker time
-    markerDiv.addEventListener('click', function(e) {
-      var preventDefault = false;
-      if (typeof setting.onMarkerClick === "function") {
-        // if return false, prevent default behavior
-        preventDefault = setting.onMarkerClick(marker) === false;
-      }
-
-      if (!preventDefault) {
-        var key = this.getAttribute('data-marker-key');
-        player.currentTime(setting.markerTip.time(markersMap[key]));
-      }
+    markerEl.addEventListener('click', () => {
+      const key = markerEl.getAttribute('data-marker-key');
+      this.player_.currentTime(this.options_.markerTip.time(this.markersMap_[key]));
+      this.player_.trigger('marker-click', marker)
     });
 
-    if (setting.markerTip.display) {
-      registerMarkerTipHandler(markerDiv);
+    if (this.options_.markerTip.display) {
+      this.registerMarkerTipHandler(markerEl);
     }
-
-    return markerDiv;
+    return markerEl
   }
 
-  function updateMarkers(force) {
-    // update UI for markers whose time changed
-    markersList.forEach((marker) => {
-      var markerDiv = player.el().querySelector(".vjs-marker[data-marker-key='" + marker.key +"']");
-      var markerTime = setting.markerTip.time(marker);
+  updateMarkers(force) {
 
-      if (force || markerDiv.getAttribute('data-marker-time') !== markerTime) {
-        setMarkderDivStyle(marker, markerDiv);
-        markerDiv.setAttribute('data-marker-time', markerTime);
+    this.markers.forEach((marker) => {
+      const element = this.player_.el().querySelector(".vjs-marker[data-marker-key='" + marker.key + "']");
+      const markerTime = this.options_.markerTip.time(marker);
+
+      if (force || element.getAttribute('data-marker-time') !== markerTime) {
+        setMarkerElStyle(marker, element);
+        element.setAttribute('data-marker-time', markerTime);
       }
     });
-    sortMarkersList();
+    this.sortMarkers();
   }
 
-  function removeMarkers(indexArray) {
+  removeMarkers(indexArray) {
     // reset overlay
-    if (!!breakOverlay){
-      overlayIndex = NULL_INDEX;
-      breakOverlay.style.visibility = "hidden";
+    if (!!this.breakOverlay_) {
+      this.overlayIndex_ = NULL_INDEX;
+      this.breakOverlay_.style.visibility = "hidden";
     }
-    currentMarkerIndex = NULL_INDEX;
+    this.currentMarkerIndex_ = NULL_INDEX;
 
     let deleteIndexList = [];
     indexArray.forEach((index) => {
-      let marker = markersList[index];
+      let marker = this.markers[index];
       if (marker) {
         // delete from memory
-        delete markersMap[marker.key];
+        delete this.markersMap_[marker.key];
         deleteIndexList.push(index);
 
         // delete from dom
-        let el = player.el().querySelector(".vjs-marker[data-marker-key='" + marker.key +"']");
+        let el = this.player_.el().querySelector(".vjs-marker[data-marker-key='" + marker.key + "']");
         el && el.parentNode.removeChild(el);
       }
     });
@@ -209,126 +162,134 @@ function registerVideoJsMarkersPlugin(options) {
     // clean up markers array
     deleteIndexList.reverse();
     deleteIndexList.forEach((deleteIndex) => {
-      markersList.splice(deleteIndex, 1);
+      this.markers.splice(deleteIndex, 1);
     });
 
     // sort again
-    sortMarkersList();
+    this.sortMarkers();
   }
 
-  // attach hover event handler
-  function registerMarkerTipHandler(markerDiv) {
-    markerDiv.addEventListener('mouseover', () => {
-      var marker = markersMap[markerDiv.getAttribute('data-marker-key')];
-      if (!!markerTip) {
-        if (setting.markerTip.html) {
-          markerTip.querySelector('.vjs-tip-inner').innerHTML = setting.markerTip.html(marker);
+  setMarkerElStyle(marker, element) {
+    element.className = `vjs-marker ${marker.class || ""}`;
+
+    Object.keys(this.options_.markerStyle).forEach(key => {
+      element.style[key] = this.options_.markerStyle[key];
+    });
+
+    const ratio = marker.time / this.player_.duration();
+    if (ratio < 0 || ratio > 1) {
+      element.style.display = 'none';
+    }
+
+    element.style.left = this.getPosition(marker) + '%';
+    if (marker.duration) {
+      element.style.width = (marker.duration / this.player_.duration()) * 100 + '%';
+      element.style.marginLeft = '0px';
+    } else {
+      const markerDivBounding = getElementBounding(element);
+      element.style.marginLeft = markerDivBounding.width / 2 + 'px';
+    }
+  }
+
+  registerMarkerTipHandler(element) {
+    element.addEventListener('mouseover', () => {
+      const marker = this.markersMap_[element.getAttribute('data-marker-key')];
+      if (!!this.markerTip_) {
+        if (this.options_.markerTip.html) {
+          this.markerTip_.querySelector('.vjs-tip-inner').innerHTML = this.options_.markerTip.html(marker);
         } else {
-          markerTip.querySelector('.vjs-tip-inner').innerText = setting.markerTip.text(marker);
+          this.markerTip_.querySelector('.vjs-tip-inner').innerText = this.options_.markerTip.text(marker);
         }
-        // margin-left needs to minus the padding length to align correctly with the marker
-        markerTip.style.left = getPosition(marker) + '%';
-        var markerTipBounding = getElementBounding(markerTip);
-        var markerDivBounding = getElementBounding(markerDiv);
-        markerTip.style.marginLeft =
+        this.markerTip_.style.left = this.getPosition(marker) + '%';
+        const markerTipBounding = getElementBounding(this.markerTip_);
+        const markerDivBounding = getElementBounding(element);
+        this.markerTip_.style.marginLeft =
           -parseFloat(markerTipBounding.width / 2) + parseFloat(markerDivBounding.width / 4) + 'px';
-        markerTip.style.visibility = 'visible';
+        this.markerTip_.style.visibility = 'visible';
       }
     });
 
-    markerDiv.addEventListener('mouseout',() => {
-      if (!!markerTip) {
-        markerTip.style.visibility = "hidden";
+    element.addEventListener('mouseout', () => {
+      if (!!this.markerTip_) {
+        this.markerTip_.style.visibility = "hidden";
       }
     });
   }
 
-  function initializeMarkerTip() {
-    markerTip = videojs.dom.createEl('div', {
+  initializeMarkerTip() {
+    this.markerTip_ = videojs.dom.createEl('div', {
       className: 'vjs-tip',
-      innerHTML: "<div class='vjs-tip-arrow'></div><div class='vjs-tip-inner'></div>",
+      innerHTML: "<div class='vjs-tip-inner'></div>",
     });
-    player.el().querySelector('.vjs-progress-holder').appendChild(markerTip);
+    this.player_.el().querySelector('.vjs-progress-holder').appendChild(this.markerTip_);
   }
 
-  // show or hide break overlays
-  function updateBreakOverlay() {
-    if (!setting.breakOverlay.display || currentMarkerIndex < 0) {
+  updateBreakOverlay() {
+    if (!this.options_.breakOverlay.display || this.currentMarkerIndex_ < 0) {
       return;
     }
 
-    var currentTime = player.currentTime();
-    var marker = markersList[currentMarkerIndex];
-    var markerTime = setting.markerTip.time(marker);
+    const currentTime = this.player_.currentTime();
+    const marker = this.markers[this.currentMarkerIndex_];
+    const markerTime = this.options_.markerTip.time(marker);
+    const isShowText = marker.overlayText
 
     if (
       currentTime >= markerTime &&
-      currentTime <= (markerTime + setting.breakOverlay.displayTime)
+      currentTime <= (markerTime + this.options_.breakOverlay.displayTime)
+      && isShowText
     ) {
-      if (overlayIndex !== currentMarkerIndex) {
-        overlayIndex = currentMarkerIndex;
-        if (breakOverlay) {
-          breakOverlay.querySelector('.vjs-break-overlay-text').innerHTML = setting.breakOverlay.text(marker);
+      if (this.overlayIndex_ !== this.currentMarkerIndex_) {
+        this.overlayIndex_ = this.currentMarkerIndex_;
+        if (this.breakOverlay_) {
+          this.breakOverlay_.querySelector('.vjs-break-overlay-text').innerHTML = this.options_.breakOverlay.text(marker);
         }
       }
 
-      if (breakOverlay) {
-        breakOverlay.style.visibility = "visible";
+      if (this.breakOverlay_) {
+        this.breakOverlay_.style.visibility = "visible";
       }
     } else {
-      overlayIndex = NULL_INDEX;
-      if (breakOverlay) {
-        breakOverlay.style.visibility = "hidden";
+      this.overlayIndex_ = NULL_INDEX;
+      if (this.breakOverlay_) {
+        this.breakOverlay_.style.visibility = "hidden";
       }
     }
   }
 
-  // problem when the next marker is within the overlay display time from the previous marker
-  function initializeOverlay() {
-    breakOverlay = videojs.dom.createEl('div', {
+  initializeOverlay() {
+    this.breakOverlay_ = videojs.dom.createEl('div', {
       className: 'vjs-break-overlay',
       innerHTML: "<div class='vjs-break-overlay-text'></div>"
     });
-    Object.keys(setting.breakOverlay.style).forEach(key => {
-      if (breakOverlay) {
-        breakOverlay.style[key] = setting.breakOverlay.style[key];
+    Object.keys(this.options_.breakOverlay.style).forEach(key => {
+      if (this.breakOverlay_) {
+        this.breakOverlay_.style[key] = this.options_.breakOverlay.style[key];
       }
     });
-    player.el().appendChild(breakOverlay);
-    overlayIndex = NULL_INDEX;
+    this.player_.el().appendChild(this.breakOverlay_);
+    this.overlayIndex_ = NULL_INDEX;
   }
 
-  function onTimeUpdate() {
-    onUpdateMarker();
-    updateBreakOverlay();
-    options.onTimeUpdateAfterMarkerUpdate && options.onTimeUpdateAfterMarkerUpdate();
-  }
-
-  function onUpdateMarker() {
-    /*
-      check marker reached in between markers
-      the logic here is that it triggers a new marker reached event only if the player
-      enters a new marker range (e.g. from marker 1 to marker 2). Thus, if player is on marker 1 and user clicked on marker 1 again, no new reached event is triggered)
-    */
-    if (!markersList.length) {
+  onUpdateMarker() {
+    if (!this.markers.length) {
       return;
     }
 
-    var getNextMarkerTime = (index) => {
-      if (index < markersList.length - 1) {
-        return setting.markerTip.time(markersList[index + 1]);
+    const getNextMarkerTime = (index) => {
+      if (index < this.markers.length - 1) {
+        return this.options_.markerTip.time(this.markers[index + 1]);
       }
       // next marker time of last marker would be end of video time
-      return player.duration();
+      return this.player_.duration();
     }
-    var currentTime = player.currentTime();
-    var newMarkerIndex = NULL_INDEX;
+    let currentTime = this.player_.currentTime();
+    let newMarkerIndex = NULL_INDEX;
 
-    if (currentMarkerIndex !== NULL_INDEX) {
-      // check if staying at same marker
-      var nextMarkerTime = getNextMarkerTime(currentMarkerIndex);
-      if(
-        currentTime >= setting.markerTip.time(markersList[currentMarkerIndex]) &&
+    if (this.currentMarkerIndex_ !== NULL_INDEX) {
+      let nextMarkerTime = getNextMarkerTime(this.currentMarkerIndex_);
+      if (
+        currentTime >= this.options_.markerTip.time(this.markers[this.currentMarkerIndex_]) &&
         currentTime < nextMarkerTime
       ) {
         return;
@@ -336,22 +297,22 @@ function registerVideoJsMarkersPlugin(options) {
 
       // check for ending (at the end current time equals player duration)
       if (
-        currentMarkerIndex === markersList.length - 1 &&
-        currentTime === player.duration()
+        this.currentMarkerIndex_ === this.markers.length - 1 &&
+        currentTime === this.player_.duration()
       ) {
         return;
       }
     }
 
     // check first marker, no marker is selected
-    if (currentTime < setting.markerTip.time(markersList[0])) {
+    if (currentTime < this.options_.markerTip.time(this.markers[0])) {
       newMarkerIndex = NULL_INDEX;
     } else {
       // look for new index
-      for (var i = 0; i < markersList.length; i++) {
-        nextMarkerTime = getNextMarkerTime(i);
+      for (let i = 0; i < this.markers.length; i++) {
+        let nextMarkerTime = getNextMarkerTime(i);
         if (
-          currentTime >= setting.markerTip.time(markersList[i]) &&
+          currentTime >= this.options_.markerTip.time(this.markers[i]) &&
           currentTime < nextMarkerTime
         ) {
           newMarkerIndex = i;
@@ -360,101 +321,106 @@ function registerVideoJsMarkersPlugin(options) {
       }
     }
 
-    // set new marker index
-    if (newMarkerIndex !== currentMarkerIndex) {
-      // trigger event if index is not null
-      if (newMarkerIndex !== NULL_INDEX && options.onMarkerReached) {
-        options.onMarkerReached(markersList[newMarkerIndex], newMarkerIndex);
+    if (newMarkerIndex !== this.currentMarkerIndex_) {
+      if (newMarkerIndex !== NULL_INDEX) {
+        this.player_.trigger('marker-reached', { index: newMarkerIndex, marker: this.markers[newMarkerIndex] })
+        // this.options_.onMarkerReached(this.markers[newMarkerIndex], newMarkerIndex);
       }
-      currentMarkerIndex = newMarkerIndex;
+      this.currentMarkerIndex_ = newMarkerIndex;
     }
   }
 
-  // setup the whole thing
-  function initialize() {
-    if (setting.markerTip.display) {
-      initializeMarkerTip();
-    }
-
-    // remove existing markers if already initialized
-    player.markers.removeAll();
-    addMarkers(setting.markers);
-
-    if (setting.breakOverlay.display) {
-      initializeOverlay();
-    }
-    onTimeUpdate();
-    player.on("timeupdate", onTimeUpdate);
-    player.off("loadedmetadata");
+  onTimeUpdate() {
+    this.onUpdateMarker();
+    this.updateBreakOverlay();
+    // this.options_.onTimeUpdateAfterMarkerUpdate && this.options_.onTimeUpdateAfterMarkerUpdate();
   }
 
-  // setup the plugin after we loaded video's meta data
-  player.on("loadedmetadata", function() {
-    initialize();
-  });
+  initialize() {
+    if (this.options_.markerTip.display) {
+      this.initializeMarkerTip();
+    }
 
-  // exposed plugin API
-  player.markers = {
-    getMarkers: function() {
-      return markersList;
-    },
-    next : function() {
-      // go to the next marker from current timestamp
-      const currentTime = player.currentTime();
-      for (var i = 0; i < markersList.length; i++) {
-        var markerTime = setting.markerTip.time(markersList[i]);
-        if (markerTime > currentTime) {
-          player.currentTime(markerTime);
-          break;
-        }
+    this.removeAll();
+    this.addMarkers(this.options_.markers);
+
+    if (this.options_.breakOverlay.display) {
+      this.initializeOverlay();
+    }
+    this.onTimeUpdate();
+    this.player_.on("timeupdate", () => this.onTimeUpdate());
+    this.player_.off("loadedmetadata");
+  }
+
+
+  // expose API
+
+  getMarkers() {
+    return this.markers
+  }
+  next() {
+    const currentTime = this.player_.currentTime();
+    for (let i = 0; i < this.markers.length; i++) {
+      const markerTime = this.options_.markerTip.time(this.markers[i]);
+      if (markerTime > currentTime) {
+        this.player_.currentTime(markerTime);
+        break;
       }
-    },
-    prev : function() {
-      // go to previous marker
-      const currentTime = player.currentTime();
-      for (var i = markersList.length - 1; i >= 0 ; i--) {
-        var markerTime = setting.markerTip.time(markersList[i]);
-        // add a threshold
-        if (markerTime + 0.5 < currentTime) {
-          player.currentTime(markerTime);
-          return;
-        }
+    }
+  }
+  prev() {
+    const currentTime = this.player_.currentTime();
+    for (let i = this.markers.length - 1; i >= 0; i--) {
+      const markerTime = this.options_.markerTip.time(this.markers[i]);
+      // add a threshold
+      if (markerTime + 0.5 < currentTime) {
+        this.player_.currentTime(markerTime);
+        return;
       }
-    },
-    add : function(newMarkers) {
-      // add new markers given an array of index
-      addMarkers(newMarkers);
-    },
-    remove: function(indexArray) {
-      // remove markers given an array of index
-      removeMarkers(indexArray);
-    },
-    removeAll: function() {
-      var indexArray = [];
-      for (var i = 0; i < markersList.length; i++) {
-        indexArray.push(i);
-      }
-      removeMarkers(indexArray);
-    },
-    // force - force all markers to be updated, regardless of if they have changed or not.
-    updateTime: function(force) {
-      // notify the plugin to update the UI for changes in marker times
-      updateMarkers(force);
-    },
-    reset: function(newMarkers) {
-      // remove all the existing markers and add new ones
-      player.markers.removeAll();
-      addMarkers(newMarkers);
-    },
-    destroy: function() {
-      // unregister the plugins and clean up even handlers
-      player.markers.removeAll();
-      breakOverlay && breakOverlay.remove();
-      markerTip && markerTip.remove();
-      player.off("timeupdate", updateBreakOverlay);
-      delete player.markers;
-    },
-  };
+    }
+  }
+
+  add(list) {
+    this.addMarkers(list);
+  }
+
+  remove(indexArray) {
+    this.removeMarkers(indexArray);
+  }
+
+  removeAll() {
+    const indexArray = [];
+    for (var i = 0; i < this.markers.length; i++) {
+      indexArray.push(i);
+    }
+    this.removeMarkers(indexArray);
+  }
+
+  updateTime(force) {
+    this.updateMarkers(force);
+  }
+
+  reset(list) {
+    this.removeAll();
+    addMarkers(list);
+  }
+
+  destroy() {
+    this.removeAll();
+    this.breakOverlay_ && this.breakOverlay_.remove();
+    this.markerTip_ && this.markerTip_.remove();
+    this.player_.off("timeupdate", this.updateBreakOverlay);
+    this.player_.off("timeupdate", this.onTimeUpdate)
+    delete this.player_.marker;
+  }
 }
 
-videojs.registerPlugin('markers', registerVideoJsMarkersPlugin);
+videojs.registerPlugin('setMarkers', function(markerOptions) {
+  const player = this.player_
+  player.markers = new Markers(player, markerOptions)
+});
+
+videojs.hook('setup', vjsPlayer => {
+  const { markerOptions } = vjsPlayer.options_;
+  vjsPlayer.setMarkers(markerOptions);
+});

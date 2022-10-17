@@ -1,8 +1,7 @@
 ## 自动卸载 <!-- {docsify-ignore-all} -->
 
 这里插件对 `Single Page Application`很有用
-如果你的 `video` 使用动态引入的资源，然后新的资源加载还需要一定的时间，你可以直接 `unload` 当前的 video
-If your video dynamically changes with URL parameters and the new video source need to wait for a new API response. Then you could stop/unload current video by `playr.unload()`.
+如果你的 `video` 使用动态引入的资源，然后新的资源加载还需要一定的时间，你可以直接通过`playr.unload()` 卸载当前的播放器
 
 ### 使用
 
@@ -12,8 +11,8 @@ If your video dynamically changes with URL parameters and the new video source n
 
 <br />
 
-> The video will unload when video time more than 5 seconds and a new video load after 2 seconds
-> 这个视频会在5秒后卸载，在2s后切换新的播放资源
+> 这个视频会在 5 秒后卸载，在 2s 后切换新的播放资源
+
 ```html inject
 <video
   id="example-video"
@@ -50,6 +49,6 @@ player.on('timeupdate', function unload() {
 
 #### 选项
 
-| 选项    | 值      | 默认  | 描述                 |
-| ------- | ------- | ----- | -------------------- |
-| loading | boolean | false | show loading spinner |
+| 选项    | 值      | 默认值 | 描述                 |
+| ------- | ------- | ------ | -------------------- |
+| loading | boolean | false  | 展示 loading 加载 UI |

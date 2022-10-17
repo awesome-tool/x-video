@@ -3,10 +3,12 @@ import path from 'path';
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
-import sourceMaps from 'rollup-plugin-sourcemaps';
+// import sourceMaps from 'rollup-plugin-sourcemaps';
 import scss from 'rollup-plugin-scss';
 import json from 'rollup-plugin-json';
 import copy from 'rollup-plugin-copy';
+import cleanup from 'rollup-plugin-cleanup';
+import { terser } from 'rollup-plugin-terser';
 import kebabCase from 'lodash/kebabCase';
 import pkg from './package.json';
 
@@ -17,6 +19,8 @@ function createEntry(input, output, css, plugins = []) {
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
     external: ['video.js'],
     plugins: [
+      cleanup(),
+      terser(),
       // Allow json resolution
       json(),
       // Compile TypeScript files
@@ -33,7 +37,7 @@ function createEntry(input, output, css, plugins = []) {
       }),
 
       // Resolve source maps to the original source
-      sourceMaps(),
+      // sourceMaps(),
       scss({
         sass: require('sass'),
         output: styles => {
@@ -56,7 +60,7 @@ const output = setFileName =>
     return {
       file: setFileName(format),
       format,
-      sourcemap: true,
+      sourcemap: false,
       globals: {
         'video.js': 'videojs'
       },

@@ -34,7 +34,7 @@ class AudioTrackSettingItem extends SettingOptionItem {
       player.tech_.off('usage', onHlsUsageEvent);
     });
 
-    player.on('audiochange', (_, { index }) => {
+    player.on('audio-change', (_, { index }) => {
       this.select(index);
       this.update(index);
     });
@@ -87,7 +87,7 @@ class AudioTrackSettingItem extends SettingOptionItem {
       return acc;
     }, {});
 
-    this.player_.trigger('audiochange', currentEntry);
+    this.player_.trigger('audio-change', currentEntry);
   }
 }
 

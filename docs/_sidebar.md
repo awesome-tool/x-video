@@ -6,6 +6,7 @@
   - [媒体查询控制](./features/controls-dimension.md)
   - [Find Child](./features/find-child.md)
 - **插件**
+  - [标注](./plugins/markers.md)
   - [音频](./plugins/audio.md)
   - [Electron 全屏切换](./plugins/electron-fullscreen-toggle.md)
   - [剧场模式](./plugins/full-window-toggle.md)

@@ -8,8 +8,8 @@ class audio extends videojs.getPlugin('plugin') {
     this.track = this.values().find(track => track.enabled);
 
     // I am worried about audio changed by other factor
-    // So also listen on `audiochange` and update the value
-    player.on('audiochange', (_, { index }) => {
+    // So also listen on `audio-change` and update the value
+    player.on('audio-change', (_, { index }) => {
       this.track = this.values()[index];
     });
   }

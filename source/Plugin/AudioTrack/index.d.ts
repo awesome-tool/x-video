@@ -24,12 +24,8 @@ declare module 'video.js' {
 
   interface VideoJsPlayer {
     audio: () => AudioPlugin;
-
-    on(type: 'audio', listener?: AudioListener): void;
-    on(type: 'audiochange', listener?: AudioChangeListener): void;
-    on(type: 'before-audio-setup', listener?: AudioChangeListener): void;
     one(type: 'audio', listener?: AudioListener): void;
-    one(type: 'audiochange', listener?: AudioChangeListener): void;
+    one(type: 'audio-change', listener?: AudioChangeListener): void;
     one(type: 'before-audio-setup', listener?: AudioChangeListener): void;
   }
 }

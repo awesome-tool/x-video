@@ -74,7 +74,7 @@ class PlayList extends List {
     player.src(sources);
     player.title(title || '');
 
-    player.trigger('playlistchange', {
+    player.trigger('playlist-change', {
       ...current,
       index: this.index()
     });

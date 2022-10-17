@@ -243,7 +243,8 @@ $dotSize: 0.8125em;
     text-align: right;
     &:before {
       position: absolute;
-      top: calc(($barHeight - $dotSize) / 2);
+      top: 50%;
+      transform: translateY(-50%);
       right: calc($dotSize / -2);
       font-size: $dotSize;
     }

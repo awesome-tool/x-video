@@ -50,7 +50,7 @@ player.on('audio', audios => {
   console.log('audio setup', audio);
 });
 
-player.on('audiochange', audio => {
+player.on('audio-change', audio => {
   console.log('audio changed');
 });
 ```
