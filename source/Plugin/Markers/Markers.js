@@ -205,6 +205,7 @@ class Markers {
         const markerDivBounding = getElementBounding(element);
         this.markerTip_.style.marginLeft =
           -parseFloat(markerTipBounding.width / 2) + parseFloat(markerDivBounding.width / 4) + 'px';
+        this.markerTip_.style.top = parseFloat(markerTipBounding.height) + parseFloat(markerDivBounding.height) - 50 + 'px';
         this.markerTip_.style.visibility = 'visible';
       }
     });

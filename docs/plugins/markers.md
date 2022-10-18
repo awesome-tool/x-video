@@ -27,8 +27,10 @@ const player = videojs('example-video', {
     markers: [
       {
         time: 10,
-        text: '123',
-        overlayText: '123'
+        text:
+          '123',
+        overlayText:
+          '123'
       }
     ]
   }
