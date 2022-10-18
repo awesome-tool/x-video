@@ -2,7 +2,7 @@ import videojs from 'video.js';
 
 import './ContextMenu.scss';
 import './Item/ContextMenuToggleLoop.js';
-import './Item/AboutThisPlayer.js';
+// import './Item/AboutThisPlayer.js';
 
 import CloseContextMenu from './CloseContextMenu';
 
