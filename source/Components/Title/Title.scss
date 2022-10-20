@@ -2,8 +2,9 @@
 
 .vjs-title {
   color: #fff;
-  position: relative;
-  padding: 0 15px 5px 15px;
+  position: absolute;
+  padding: 5px 15px;
+  top: 0;
   width: 100%;
   overflow: hidden;
   background-image: linear-gradient(

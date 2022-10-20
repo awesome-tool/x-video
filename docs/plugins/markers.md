@@ -35,14 +35,16 @@ const player = videojs('example-video', {
   //   ]
   // }
 });
-player.markers.makers = [
+const makers = [
   {
     time: 10,
     text: '123',
     overlayText: '123'
   }
 ];
-player.markers.updateTime()
+setTimeout(() => {
+  player.markers.reset(makers)
+}, 0);
 console.log(player.markers);
 ```
 

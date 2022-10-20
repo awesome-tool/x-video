@@ -92,13 +92,16 @@ class Markers {
   }
 
   addMarkers(list) {
-    list.forEach(marker => {
-      marker.key = generateUUID()
-      this.player_.el().querySelector('.vjs-progress-holder').appendChild(this.createMarkerEl(marker))
-      this.markersMap_[marker.key] = marker
-      this.markers.push(marker)
-    });
-    this.sortMarkers()
+    if(Array.isArray(list)) {
+      list.forEach(marker => {
+        marker.key = generateUUID()
+        const element = this.createMarkerEl(marker)
+        this.player_.el().querySelector('.vjs-progress-holder').appendChild(element)
+        this.markersMap_[marker.key] = marker
+        this.markers.push(marker)
+      });
+      this.sortMarkers()
+    }
   }
 
   createMarkerEl(marker) {
@@ -129,8 +132,8 @@ class Markers {
       const element = this.player_.el().querySelector(".vjs-marker[data-marker-key='" + marker.key + "']");
       const markerTime = this.options_.markerTip.time(marker);
 
-      if (force || element.getAttribute('data-marker-time') !== markerTime) {
-        setMarkerElStyle(marker, element);
+      if (force || !element || element.getAttribute('data-marker-time') !== markerTime) {
+        this.setMarkerElStyle(marker, element);
         element.setAttribute('data-marker-time', markerTime);
       }
     });
@@ -417,8 +420,7 @@ class Markers {
 }
 
 videojs.registerPlugin('setMarkers', function(markerOptions) {
-  const player = this.player_
-  player.markers = new Markers(player, markerOptions)
+  this.player_.markers = new Markers(this.player_, markerOptions)
 });
 
 videojs.hook('setup', vjsPlayer => {
