@@ -403,7 +403,7 @@ class Markers {
 
   reset(list) {
     this.removeAll();
-    addMarkers(list);
+    this.addMarkers(list);
   }
 
   destroy() {
