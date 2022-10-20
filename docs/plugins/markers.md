@@ -23,18 +23,28 @@
 
 ```js run
 const player = videojs('example-video', {
-  markerOptions: {
-    markers: [
-      {
-        time: 10,
-        text:
-          '123',
-        overlayText:
-          '123'
-      }
-    ]
-  }
+  // markerOptions: {
+  //   markers: [
+  //     {
+  //       time: 10,
+  //       text:
+  //         '123',
+  //       overlayText:
+  //         '123'
+  //     }
+  //   ]
+  // }
 });
+const makers = [
+  {
+    time: 10,
+    text: '123',
+    overlayText: '123'
+  }
+];
+setTimeout(() => {
+  player.markers.reset(makers)
+}, 0);
 console.log(player.markers);
 ```
 
@@ -81,27 +91,8 @@ var player = videojs('video-id', {
   ]
 });
 
-//load the marker plugin
-player.markers({
-  markers: [
-    {
-      time: 9.5,
-      text: 'put'
-    },
-    {
-      time: 16,
-      text: 'any'
-    },
-    {
-      time: 23.6,
-      text: 'text'
-    },
-    {
-      time: 28,
-      text: 'here'
-    }
-  ]
-});
+//force update
+player.markers.updateTime();
 
 // next marker
 player.markers.next();
