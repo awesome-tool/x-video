@@ -1,47 +1,184 @@
-.vjs-menu .vjs-menu-content {
-  padding: 0.3em 0;
-  margin: 0;
-  font-size: 0.875em;
-  color: #fff;
-}
-.vjs-menu .vjs-menu-content .vjs-menu-item .vjs-menu-item-text {
-  display: inline-block;
-}
-.vjs-menu .vjs-menu-content .vjs-menu-item.vjs-checkbox.vjs-selected:after {
-  content: "";
-  width: 0.4em;
-  height: 0.8em;
-  display: block;
-  margin-top: -0.2em;
-  border-right: 0.15em solid;
-  border-bottom: 0.15em solid;
-  transform: rotate(45deg);
-}
-
-.vjs-workinghover .vjs-menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.vjs-menu {
+.vjs-loading-spinner {
+  display: none;
+  width: 50px;
+  height: 50px;
   position: absolute;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-  background-color: rgba(28, 28, 28, 0.9);
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  text-align: left;
+  box-sizing: border-box;
+  background-clip: padding-box;
+  border-radius: 50%;
+}
+.vjs-loading-spinner:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-width: 4px;
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.5);
+  border-top-color: white;
+  border-radius: 50%;
+  position: relative;
+  top: 50%;
+  margin: auto;
+  margin-top: -50%;
 }
 
-.vjs-menu li {
-  list-style: none;
-  margin: 0;
-  padding: 0.7em 1em;
-  line-height: 1.35em;
-  font-size: 1em;
-  text-align: left;
-  outline: none;
-  cursor: pointer;
-  white-space: nowrap;
+.vjs-seeking .vjs-loading-spinner,
+.vjs-waiting .vjs-loading-spinner {
+  display: block;
+  animation: h5LoadingAnimation 1s linear infinite;
 }
-.vjs-menu li .vjs-icon-placeholder {
-  font-size: 1.5em;
+
+@keyframes h5LoadingAnimation {
+  0% {
+    -webkit-transform: rotate(0);
+    transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.video-js:-moz-full-screen {
+  position: absolute;
+}
+
+.video-js:-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.video-js[tabindex="-1"] {
+  outline: none;
+}
+
+.video-js ul {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  list-style-position: outside;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  outline: 0;
+}
+
+.video-js.vjs-fluid,
+.video-js.vjs-16-9,
+.video-js.vjs-4-3 {
+  width: 100%;
+  max-width: 100%;
+  height: 0;
+}
+
+.video-js.vjs-16-9 {
+  padding-top: 56.25%;
+}
+
+.video-js.vjs-4-3 {
+  padding-top: 75%;
+}
+
+.video-js.vjs-fill {
+  width: 100%;
+  height: 100%;
+}
+
+.video-js .vjs-tech {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.vjs-full-window {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.vjs-full-window .video-js.vjs-fullscreen {
+  position: fixed;
+  overflow: hidden;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.video-js.vjs-fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
+  background-color: #000;
+}
+
+.video-js.vjs-fullscreen.vjs-user-inactive {
+  cursor: none;
+}
+
+.vjs-hidden {
+  display: none !important;
+}
+
+.vjs-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.video-js .vjs-offscreen {
+  height: 1px;
+  left: -9999px;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.video-js .vjs-control-text {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.vjs-controls-disabled .vjs-big-play-button,
+.vjs-has-started .vjs-big-play-button,
+.vjs-using-native-controls .vjs-big-play-button,
+.vjs-error .vjs-big-play-button {
+  display: none;
+}
+
+.vjs-has-started.vjs-paused.vjs-show-big-play-button-on-pause .vjs-big-play-button {
+  display: block;
+}
+
+.vjs-resize-manager {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  visibility: hidden;
+  z-index: -1;
+}
+
+.vjs-spacer {
+  flex-grow: 1;
 }
 
 @font-face {
@@ -473,140 +610,50 @@
   display: block;
 }
 
-.video-js:-moz-full-screen {
-  position: absolute;
-}
-
-.video-js:-webkit-full-screen {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.video-js[tabindex="-1"] {
-  outline: none;
-}
-
-.video-js ul {
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  list-style-position: outside;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
-  outline: 0;
-}
-
-.video-js.vjs-fluid,
-.video-js.vjs-16-9,
-.video-js.vjs-4-3 {
-  width: 100%;
-  max-width: 100%;
-  height: 0;
-}
-
-.video-js.vjs-16-9 {
-  padding-top: 56.25%;
-}
-
-.video-js.vjs-4-3 {
-  padding-top: 75%;
-}
-
-.video-js.vjs-fill {
-  width: 100%;
-  height: 100%;
-}
-
-.video-js .vjs-tech {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-body.vjs-full-window {
-  padding: 0;
+.vjs-menu .vjs-menu-content {
+  padding: 0.3em 0;
   margin: 0;
-  height: 100%;
-  overflow-y: auto;
+  font-size: 0.875em;
+  color: #fff;
 }
-
-.vjs-full-window .video-js.vjs-fullscreen {
-  position: fixed;
-  overflow: hidden;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
+.vjs-menu .vjs-menu-content .vjs-menu-item .vjs-menu-item-text {
+  display: inline-block;
 }
-
-.video-js.vjs-fullscreen {
-  width: 100% !important;
-  height: 100% !important;
-  padding-top: 0 !important;
-  background-color: #000;
-}
-
-.video-js.vjs-fullscreen.vjs-user-inactive {
-  cursor: none;
-}
-
-.vjs-hidden {
-  display: none !important;
-}
-
-.vjs-disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-
-.video-js .vjs-offscreen {
-  height: 1px;
-  left: -9999px;
-  position: absolute;
-  top: 0;
-  width: 1px;
-}
-
-.video-js .vjs-control-text {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.vjs-controls-disabled .vjs-big-play-button,
-.vjs-has-started .vjs-big-play-button,
-.vjs-using-native-controls .vjs-big-play-button,
-.vjs-error .vjs-big-play-button {
-  display: none;
-}
-
-.vjs-has-started.vjs-paused.vjs-show-big-play-button-on-pause .vjs-big-play-button {
+.vjs-menu .vjs-menu-content .vjs-menu-item.vjs-checkbox.vjs-selected:after {
+  content: "";
+  width: 0.4em;
+  height: 0.8em;
   display: block;
+  margin-top: -0.2em;
+  border-right: 0.15em solid;
+  border-bottom: 0.15em solid;
+  transform: rotate(45deg);
 }
 
-.vjs-resize-manager {
+.vjs-workinghover .vjs-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vjs-menu {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  visibility: hidden;
-  z-index: -1;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  background-color: rgba(28, 28, 28, 0.9);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
-.vjs-spacer {
-  flex-grow: 1;
+.vjs-menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0.7em 1em;
+  line-height: 1.35em;
+  font-size: 1em;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.vjs-menu li .vjs-icon-placeholder {
+  font-size: 1.5em;
 }
 
 .vjs-poster {
@@ -626,53 +673,6 @@ body.vjs-full-window {
   visibility: hidden;
 }
 
-.vjs-loading-spinner {
-  display: none;
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  text-align: left;
-  box-sizing: border-box;
-  background-clip: padding-box;
-  border-radius: 50%;
-}
-.vjs-loading-spinner:after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-width: 4px;
-  border-style: solid;
-  border-color: rgba(255, 255, 255, 0.5);
-  border-top-color: white;
-  border-radius: 50%;
-  position: relative;
-  top: 50%;
-  margin: auto;
-  margin-top: -50%;
-}
-
-.vjs-seeking .vjs-loading-spinner,
-.vjs-waiting .vjs-loading-spinner {
-  display: block;
-  animation: h5LoadingAnimation 1s linear infinite;
-}
-
-@keyframes h5LoadingAnimation {
-  0% {
-    -webkit-transform: rotate(0);
-    transform: rotate(0);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
 .vjs-modal-dialog {
   position: absolute;
   top: 0;
@@ -955,103 +955,6 @@ body.vjs-full-window {
   opacity: 0;
 }
 
-.vjs-context-menu {
-  z-index: 1000;
-  border-radius: 3px;
-}
-.vjs-context-menu .vjs-close-context-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-}
-.vjs-context-menu .vjs-menu-content {
-  position: relative;
-}
-
-.vjs-context-menu-item {
-  display: flex;
-  align-items: center;
-}
-.vjs-context-menu-item span {
-  display: block;
-}
-.vjs-context-menu-item .vjs-menu-item-text {
-  margin-left: 0.5em;
-}
-.vjs-context-menu-item:after {
-  margin-right: 0;
-  margin-left: auto;
-}
-
-@media (min-width: 481px) {
-  .vjs-context-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .vjs-context-menu .vjs-menu-content {
-    width: calc-menu-width(225/16);
-  }
-}
-@media (max-width: 480px) {
-  .vjs-context-menu {
-    top: 0 !important;
-    left: 0 !important;
-    visibility: hidden;
-    will-change: visibility;
-  }
-  .vjs-context-menu:not(.vjs-hidden) {
-    visibility: visible;
-  }
-}
-@media (max-width: 480px) and (max-width: 480px) {
-  .vjs-context-menu {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: none;
-    text-shadow: none;
-    box-shadow: none;
-    transition: visibility 0s linear 0.3s;
-  }
-  .vjs-context-menu .vjs-menu-content {
-    position: absolute;
-    bottom: 0;
-    width: 100% !important;
-    color: #333;
-    background-color: #fff;
-    transform: translateY(100%);
-    transition: 0.3s transform ease, 0.3s height ease;
-  }
-  .vjs-context-menu .vjs-menu-item {
-    width: 100% !important;
-  }
-  .vjs-context-menu:not(.vjs-hidden) {
-    transition: visibility 0s linear 0s;
-  }
-  .vjs-context-menu:not(.vjs-hidden) .vjs-close-menu-layer {
-    opacity: 1;
-  }
-  .vjs-context-menu:not(.vjs-hidden) .vjs-menu-content {
-    transform: translateY(0);
-  }
-}
-@media (max-width: 480px) {
-  .vjs-context-menu.vjs-hidden {
-    display: block !important;
-    visibility: hidden;
-  }
-}
-@media (max-width: 480px) {
-  .vjs-close-context-menu {
-    background-color: rgba(0, 0, 0, 0.7);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-}
 .vjs-setting-button .vjs-icon-placeholder {
   display: block;
   transform: rotate(0deg);
@@ -1257,6 +1160,103 @@ body.vjs-full-window {
   }
   .vjs-setting-menu-ready .vjs-setting-menu-value {
     padding-right: 0.8em;
+  }
+}
+.vjs-context-menu {
+  z-index: 1000;
+  border-radius: 3px;
+}
+.vjs-context-menu .vjs-close-context-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.vjs-context-menu .vjs-menu-content {
+  position: relative;
+}
+
+.vjs-context-menu-item {
+  display: flex;
+  align-items: center;
+}
+.vjs-context-menu-item span {
+  display: block;
+}
+.vjs-context-menu-item .vjs-menu-item-text {
+  margin-left: 0.5em;
+}
+.vjs-context-menu-item:after {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media (min-width: 481px) {
+  .vjs-context-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .vjs-context-menu .vjs-menu-content {
+    width: calc-menu-width(225/16);
+  }
+}
+@media (max-width: 480px) {
+  .vjs-context-menu {
+    top: 0 !important;
+    left: 0 !important;
+    visibility: hidden;
+    will-change: visibility;
+  }
+  .vjs-context-menu:not(.vjs-hidden) {
+    visibility: visible;
+  }
+}
+@media (max-width: 480px) and (max-width: 480px) {
+  .vjs-context-menu {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: none;
+    text-shadow: none;
+    box-shadow: none;
+    transition: visibility 0s linear 0.3s;
+  }
+  .vjs-context-menu .vjs-menu-content {
+    position: absolute;
+    bottom: 0;
+    width: 100% !important;
+    color: #333;
+    background-color: #fff;
+    transform: translateY(100%);
+    transition: 0.3s transform ease, 0.3s height ease;
+  }
+  .vjs-context-menu .vjs-menu-item {
+    width: 100% !important;
+  }
+  .vjs-context-menu:not(.vjs-hidden) {
+    transition: visibility 0s linear 0s;
+  }
+  .vjs-context-menu:not(.vjs-hidden) .vjs-close-menu-layer {
+    opacity: 1;
+  }
+  .vjs-context-menu:not(.vjs-hidden) .vjs-menu-content {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 480px) {
+  .vjs-context-menu.vjs-hidden {
+    display: block !important;
+    visibility: hidden;
+  }
+}
+@media (max-width: 480px) {
+  .vjs-close-context-menu {
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
   }
 }
 .vjs-play-toggle-layer {
