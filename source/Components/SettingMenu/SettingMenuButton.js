@@ -3,7 +3,7 @@ import SettingMenu from './SettingMenu.js';
 
 import './Item/SettingOnOffItem';
 import './Item/SettingOptionItem.js';
-import './PlaybackRate/PlaybackRateSettingItem.js';
+// import './PlaybackRate/PlaybackRateSettingItem.js';
 import './Setting.scss';
 
 const MenuButton = videojs.getComponent('MenuButton');
