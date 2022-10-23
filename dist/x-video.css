@@ -1,3 +1,66 @@
+.vjs-poster {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #000;
+  outline: none;
+}
+
+.vjs-has-started:not(.vjs-ended) .vjs-poster {
+  visibility: hidden;
+}
+
+.vjs-menu .vjs-menu-content {
+  padding: 0.3em 0;
+  margin: 0;
+  font-size: 0.875em;
+  color: #fff;
+}
+.vjs-menu .vjs-menu-content .vjs-menu-item .vjs-menu-item-text {
+  display: inline-block;
+}
+.vjs-menu .vjs-menu-content .vjs-menu-item.vjs-checkbox.vjs-selected:after {
+  content: "";
+  width: 0.4em;
+  height: 0.8em;
+  display: block;
+  margin-top: -0.2em;
+  border-right: 0.15em solid;
+  border-bottom: 0.15em solid;
+  transform: rotate(45deg);
+}
+
+.vjs-workinghover .vjs-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vjs-menu {
+  position: absolute;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+  background-color: rgba(28, 28, 28, 0.9);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.vjs-menu li {
+  list-style: none;
+  margin: 0;
+  padding: 0.7em 1em;
+  line-height: 1.35em;
+  font-size: 1em;
+  text-align: left;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.vjs-menu li .vjs-icon-placeholder {
+  font-size: 1.5em;
+}
+
 .vjs-loading-spinner {
   display: none;
   width: 50px;
@@ -610,69 +673,6 @@ body.vjs-full-window {
   display: block;
 }
 
-.vjs-menu .vjs-menu-content {
-  padding: 0.3em 0;
-  margin: 0;
-  font-size: 0.875em;
-  color: #fff;
-}
-.vjs-menu .vjs-menu-content .vjs-menu-item .vjs-menu-item-text {
-  display: inline-block;
-}
-.vjs-menu .vjs-menu-content .vjs-menu-item.vjs-checkbox.vjs-selected:after {
-  content: "";
-  width: 0.4em;
-  height: 0.8em;
-  display: block;
-  margin-top: -0.2em;
-  border-right: 0.15em solid;
-  border-bottom: 0.15em solid;
-  transform: rotate(45deg);
-}
-
-.vjs-workinghover .vjs-menu-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.vjs-menu {
-  position: absolute;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-  background-color: rgba(28, 28, 28, 0.9);
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
-}
-
-.vjs-menu li {
-  list-style: none;
-  margin: 0;
-  padding: 0.7em 1em;
-  line-height: 1.35em;
-  font-size: 1em;
-  text-align: left;
-  outline: none;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.vjs-menu li .vjs-icon-placeholder {
-  font-size: 1.5em;
-}
-
-.vjs-poster {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-size: contain;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-color: #000;
-  outline: none;
-}
-
-.vjs-has-started:not(.vjs-ended) .vjs-poster {
-  visibility: hidden;
-}
-
 .vjs-modal-dialog {
   position: absolute;
   top: 0;
@@ -728,6 +728,138 @@ body.vjs-full-window {
 .video-js *::-webkit-media-controls-start-playback-button {
   display: none !important;
   -webkit-appearance: none;
+}
+
+.vjs-play-toggle-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  cursor: pointer;
+}
+
+.vjs-context-menu {
+  z-index: 1000;
+  border-radius: 3px;
+}
+.vjs-context-menu .vjs-close-context-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.vjs-context-menu .vjs-menu-content {
+  position: relative;
+}
+
+.vjs-context-menu-item {
+  display: flex;
+  align-items: center;
+}
+.vjs-context-menu-item span {
+  display: block;
+}
+.vjs-context-menu-item .vjs-menu-item-text {
+  margin-left: 0.5em;
+}
+.vjs-context-menu-item:after {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media (min-width: 481px) {
+  .vjs-context-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .vjs-context-menu .vjs-menu-content {
+    width: calc-menu-width(225/16);
+  }
+}
+@media (max-width: 480px) {
+  .vjs-context-menu {
+    top: 0 !important;
+    left: 0 !important;
+    visibility: hidden;
+    will-change: visibility;
+  }
+  .vjs-context-menu:not(.vjs-hidden) {
+    visibility: visible;
+  }
+}
+@media (max-width: 480px) and (max-width: 480px) {
+  .vjs-context-menu {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: none;
+    text-shadow: none;
+    box-shadow: none;
+    transition: visibility 0s linear 0.3s;
+  }
+  .vjs-context-menu .vjs-menu-content {
+    position: absolute;
+    bottom: 0;
+    width: 100% !important;
+    color: #333;
+    background-color: #fff;
+    transform: translateY(100%);
+    transition: 0.3s transform ease, 0.3s height ease;
+  }
+  .vjs-context-menu .vjs-menu-item {
+    width: 100% !important;
+  }
+  .vjs-context-menu:not(.vjs-hidden) {
+    transition: visibility 0s linear 0s;
+  }
+  .vjs-context-menu:not(.vjs-hidden) .vjs-close-menu-layer {
+    opacity: 1;
+  }
+  .vjs-context-menu:not(.vjs-hidden) .vjs-menu-content {
+    transform: translateY(0);
+  }
+}
+@media (max-width: 480px) {
+  .vjs-context-menu.vjs-hidden {
+    display: block !important;
+    visibility: hidden;
+  }
+}
+@media (max-width: 480px) {
+  .vjs-close-context-menu {
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+}
+.vjs-title {
+  color: #fff;
+  position: absolute;
+  padding: 5px 15px;
+  top: 0;
+  width: 100%;
+  overflow: hidden;
+  background-image: linear-gradient(to top, rgba(23, 23, 23, 0) 0, rgba(0, 0, 0, 0.4) 100%);
+  visibility: visible;
+  opacity: 1;
+  transition: 0.3s ease opacity;
+}
+.vjs-title .vjs-title-field {
+  width: 100%;
+  height: 2.5em;
+  line-height: 2.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vjs-user-inactive.vjs-playing .vjs-title {
+  visibility: hidden;
+  opacity: 0;
 }
 
 .vjs-control-bar {
@@ -928,31 +1060,6 @@ body.vjs-full-window {
   width: 100%;
   height: 0.1875em;
   background-color: rgba(255, 255, 255, 0.6);
-}
-
-.vjs-title {
-  color: #fff;
-  position: absolute;
-  padding: 5px 15px;
-  top: 0;
-  width: 100%;
-  overflow: hidden;
-  background-image: linear-gradient(to top, rgba(23, 23, 23, 0) 0, rgba(0, 0, 0, 0.4) 100%);
-  visibility: visible;
-  opacity: 1;
-  transition: 0.3s ease opacity;
-}
-.vjs-title .vjs-title-field {
-  width: 100%;
-  height: 2.5em;
-  line-height: 2.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.vjs-user-inactive.vjs-playing .vjs-title {
-  visibility: hidden;
-  opacity: 0;
 }
 
 .vjs-setting-button .vjs-icon-placeholder {
@@ -1162,113 +1269,6 @@ body.vjs-full-window {
     padding-right: 0.8em;
   }
 }
-.vjs-context-menu {
-  z-index: 1000;
-  border-radius: 3px;
-}
-.vjs-context-menu .vjs-close-context-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-}
-.vjs-context-menu .vjs-menu-content {
-  position: relative;
-}
-
-.vjs-context-menu-item {
-  display: flex;
-  align-items: center;
-}
-.vjs-context-menu-item span {
-  display: block;
-}
-.vjs-context-menu-item .vjs-menu-item-text {
-  margin-left: 0.5em;
-}
-.vjs-context-menu-item:after {
-  margin-right: 0;
-  margin-left: auto;
-}
-
-@media (min-width: 481px) {
-  .vjs-context-menu {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .vjs-context-menu .vjs-menu-content {
-    width: calc-menu-width(225/16);
-  }
-}
-@media (max-width: 480px) {
-  .vjs-context-menu {
-    top: 0 !important;
-    left: 0 !important;
-    visibility: hidden;
-    will-change: visibility;
-  }
-  .vjs-context-menu:not(.vjs-hidden) {
-    visibility: visible;
-  }
-}
-@media (max-width: 480px) and (max-width: 480px) {
-  .vjs-context-menu {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: none;
-    text-shadow: none;
-    box-shadow: none;
-    transition: visibility 0s linear 0.3s;
-  }
-  .vjs-context-menu .vjs-menu-content {
-    position: absolute;
-    bottom: 0;
-    width: 100% !important;
-    color: #333;
-    background-color: #fff;
-    transform: translateY(100%);
-    transition: 0.3s transform ease, 0.3s height ease;
-  }
-  .vjs-context-menu .vjs-menu-item {
-    width: 100% !important;
-  }
-  .vjs-context-menu:not(.vjs-hidden) {
-    transition: visibility 0s linear 0s;
-  }
-  .vjs-context-menu:not(.vjs-hidden) .vjs-close-menu-layer {
-    opacity: 1;
-  }
-  .vjs-context-menu:not(.vjs-hidden) .vjs-menu-content {
-    transform: translateY(0);
-  }
-}
-@media (max-width: 480px) {
-  .vjs-context-menu.vjs-hidden {
-    display: block !important;
-    visibility: hidden;
-  }
-}
-@media (max-width: 480px) {
-  .vjs-close-context-menu {
-    background-color: rgba(0, 0, 0, 0.7);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-}
-.vjs-play-toggle-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  cursor: pointer;
-}
-
 .vjs-mobile-view.video-js:not(.vjs-has-started) .vjs-control-bar {
   display: none;
 }
