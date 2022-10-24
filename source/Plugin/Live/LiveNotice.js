@@ -8,7 +8,7 @@ class LiveNotice extends Component {
       className: 'vjs-live-notice',
       innerHTML: `
         <div class="vjs-live-notice-spot vjs-icon-circle"></div>
-        Live
+        直播
       `
     });
 

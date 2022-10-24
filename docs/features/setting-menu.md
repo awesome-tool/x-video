@@ -35,8 +35,6 @@ class ToggleAnnotation extends SettingOnOffItem {
    */
   update(active) {
     super.update(active);
-
-    console.log(this.active);
   }
 }
 

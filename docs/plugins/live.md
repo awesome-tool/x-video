@@ -22,10 +22,13 @@
 
 ```js run
 const player = videojs('example-video', {
-  muted: true
+  muted: true,
 });
 
+player.volume(0.6)
 player.live();
+player.load()
+player.play()
 ```
 
 ### API
