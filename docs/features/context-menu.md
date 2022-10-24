@@ -15,27 +15,31 @@
 ```js run
 const ContextMenuItem = videojs.getComponent('ContextMenuItem'); // highlight-line
 
-class ContextMenuCopyURL extends ContextMenuItem /* highlight-line */ {
+class ContextMenuToggleLoop extends ContextMenuItem {
   constructor(player) {
     super(player, {
-      name: 'CopyVideoURL', // component name, optional // highlight-line
-      label: 'Copy video URL', // highlight-line
-      icon: 'vjs-icon-xxxx' // videojs icon classname, optional // highlight-line
+      name: 'ContextMenuToggleLoop',
+      label: 'Loop',
+      icon: 'vjs-icon-loop'
     });
+
+    this.addClass('vjs-checkbox');
+
+    player.on('loadstart', this.update.bind(this));
   }
 
-  handleClick() /* highlight-line */ {
-    alert('copied');
+  update() {
+    this.selected(this.player_.loop());
+  }
+
+  handleClick() {
+    super.handleClick();
+
+    this.player_.loop(!this.player_.loop());
+
+    this.update();
   }
 }
 
-const player = videojs('example-video', {
-  aspectRatio: '16:9',
-  muted: true
-});
-
-player.getChild('ContextMenu').addChild(new ContextMenuCopyURL(player)); // highlight-line
-
-// for demo
-player.findChild('ContextMenu')[0].component.show(100, 100);
+videojs.registerComponent('ContextMenuToggleLoop', ContextMenuToggleLoop);
 ```
