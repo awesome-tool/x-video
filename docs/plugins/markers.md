@@ -22,30 +22,16 @@
 ```
 
 ```js run
-const player = videojs('example-video', {
-  // markerOptions: {
-  //   markers: [
-  //     {
-  //       time: 10,
-  //       text:
-  //         '123',
-  //       overlayText:
-  //         '123'
-  //     }
-  //   ]
-  // }
+const player = videojs('example-video', {}, function () {
+  const markers = [
+    {
+      time: 10,
+      text: '123\n123123',
+      overlayText: '123'
+    }
+  ];
+  player.markers.reset(markers);
 });
-const makers = [
-  {
-    time: 10,
-    text: '123',
-    overlayText: '123'
-  }
-];
-setTimeout(() => {
-  player.markers.reset(makers)
-}, 0);
-console.log(player.markers);
 ```
 
 ### API
