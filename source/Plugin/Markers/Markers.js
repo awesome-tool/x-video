@@ -206,9 +206,10 @@ class Markers {
         this.markerTip_.style.left = this.getPosition(marker) + '%';
         const markerTipBounding = getElementBounding(this.markerTip_);
         const markerDivBounding = getElementBounding(element);
+        const markerInnerBounding = getElementBounding(this.markerTip_.querySelector('.vjs-tip-inner'));
         this.markerTip_.style.marginLeft =
           -parseFloat(markerTipBounding.width / 2) + parseFloat(markerDivBounding.width / 4) + 'px';
-        this.markerTip_.style.top = parseFloat(markerTipBounding.height) + parseFloat(markerDivBounding.height) - 50 + 'px';
+        this.markerTip_.style.top = - parseFloat(markerInnerBounding.height) - 10 + 'px';
         this.markerTip_.style.visibility = 'visible';
       }
     });
