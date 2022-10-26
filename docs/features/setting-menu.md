@@ -10,7 +10,7 @@
 </video>
 ```
 
-> 添加一个右键菜单annotaion开关的示例
+> 添加一个右键菜单 annotaion 开关的示例
 
 ```js run
 const SettingOnOffItem = videojs.getComponent('SettingOnOffItem');
@@ -87,6 +87,11 @@ class QualityMenuItem extends SettingOptionItem {
 
 class QualityMenuItemChild extends SettingSubOptionItem {
   handleClick() {
+    setTimeout(() => {
+      document
+        .querySelector('.vjs-setting-menu')
+        .classList.remove('vjs-lock-showing');
+    }, 1000);
     if (authorised || this.value === 'Auto' || this.value < 720) {
       super.handleClick();
     } else {
